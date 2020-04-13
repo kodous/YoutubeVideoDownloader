@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import *
 from tkinter import ttk
+from tkinter import messagebox
 from tkinter import filedialog
 import os
 
@@ -48,8 +49,13 @@ class GraphicInterface(object):
 
         tk.Button(beginFrame, text="Begin", fg="white", bg="#515151",
                   command=self.beginProcess).grid(row=0, column=0)
+        # create a style sheet for the progressbar
+        s = ttk.Style()
+        s.theme_use('clam')
+        s.configure('green.Horizontal.TProgressbar', foreground='green', background='green')
 
-        self.progressBar = ttk.Progressbar(beginFrame, length=280, orient=HORIZONTAL, mode='determinate')
+        self.progressBar = ttk.Progressbar(beginFrame, style='green.Horizontal.TProgressbar',
+                                           length=280, orient=HORIZONTAL, mode='determinate')
         self.progressBar.grid(row=1, column=0, pady=10)
 
         beginFrame.pack()
@@ -64,7 +70,8 @@ class GraphicInterface(object):
         return self.dir
 
     def updateProgressBar(self, x, y, value, a, b):
-        print('here')
         print(self.progressBar['value'])
         self.progressBar['value'] = value * 100
         self.root.update_idletasks()
+        if value * 100 >= 100:
+            messagebox.showinfo("info", "Download Complete")
