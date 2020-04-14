@@ -11,4 +11,7 @@ downloads video or audio of youtube video or an entire playlist
 ```
 pip install pafy
 ```
-
+* if you are having trouble with pafy, install youtube-dl
+```
+pip install youtube_dl
+```
